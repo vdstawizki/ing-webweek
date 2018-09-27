@@ -1,6 +1,20 @@
 export default class CommentForm extends HTMLElement {
   connectedCallback() {
     this.render();
+    this.form = this.querySelector('form');
+    this.input = this.querySelector('input');
+    this.textarea = this.querySelector('textarea');
+    this.form.addEventListener('submit', this.onSubmit.bind(this));
+  }
+
+  onSubmit(event) {
+    event.preventDefault();
+
+    this.dispatchEvent(new CustomEvent('ing:submit', {
+      detail: { name: this.input.value, comment: this.textarea.value },
+    }));
+
+    this.textarea.value = '';
   }
 
   template() {

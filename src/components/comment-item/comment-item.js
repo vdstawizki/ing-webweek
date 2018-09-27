@@ -3,8 +3,16 @@ export default class CommentItem extends HTMLElement {
     return this.getAttribute('name');
   }
 
+  set name(value) {
+    this.setAttribute('name', value);
+  }
+
   get comment() {
     return this.getAttribute('comment');
+  }
+
+  set comment(value) {
+    this.setAttribute('comment', value);
   }
 
   connectedCallback() {
