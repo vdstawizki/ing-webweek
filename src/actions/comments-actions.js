@@ -1,98 +1,48 @@
 import {
-  FETCH_COMMENTS_START,
-  FETCH_COMMENTS_SUCCESS,
-  FETCH_COMMENTS_ERROR,
-  ADD_COMMENT_START,
-  ADD_COMMENT_SUCCESS,
-  ADD_COMMENT_ERROR,
-  DELETE_COMMENT_SUCCESS,
+  FETCH_COMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
 } from './action-types';
 
-export const fetchComments = () => (dispatch) => {
+const asyncAction = (promise, actionName, optionalPayload = null) => (dispatch) => {
   dispatch({
-    type: FETCH_COMMENTS_START,
+    type: `${actionName}_START`,
   });
 
-  fetch('http://localhost:3000/comments').then((res) => {
-    if (res.status !== 200) {
+  promise.then((res) => {
+    if (!res.ok) {
       throw new Error('Looks like there ware a problem:', res.statusText);
     }
-
     return res.json();
   }).then((data) => {
-    setTimeout(() => {
-      dispatch({
-        type: FETCH_COMMENTS_SUCCESS,
-        payload: data,
-      });
-    }, 300);
+    dispatch({
+      type: `${actionName}_SUCCESS`,
+      payload: Object.keys(data).length ? data : optionalPayload,
+    });
   }).catch((error) => {
     dispatch({
-      type: FETCH_COMMENTS_ERROR,
+      type: `${actionName}_ERROR`,
       payload: error,
     });
   });
 };
 
-export const addComment = comment => (dispatch) => {
-  dispatch({
-    type: ADD_COMMENT_START,
-  });
+export const fetchComments = () => {
+  return asyncAction(fetch('http://localhost:3000/comments'), FETCH_COMMENTS);
+}
 
-  fetch('http://localhost:3000/comments', {
+export const addComment = (comment) => {
+  return asyncAction(fetch('http://localhost:3000/comments', {
     method: 'post',
     headers: {
       'Content-type': 'application/json',
     },
     body: JSON.stringify(comment),
-  })
-    .then((res) => {
-      if (res.status !== 201) {
-        throw new Error('Looks like there ware a problem:', res.statusText);
-      }
-
-      return res.json();
-    })
-    .then((data) => {
-      dispatch({
-        type: ADD_COMMENT_SUCCESS,
-        payload: {
-          ...comment,
-          id: data.id,
-        },
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: ADD_COMMENT_ERROR,
-        payload: error,
-      });
-    });
+  }), ADD_COMMENT);
 };
 
-export const deleteComment = id => (dispatch) => {
-  fetch(`http://localhost:3000/comments/${id}`, {
+export const deleteComment = (id) => {
+  return asyncAction(fetch(`http://localhost:3000/comments/${id}`, {
     method: 'delete',
-  })
-    .then((res) => {
-      if (res.status !== 200) {
-        throw new Error('Looks like there ware a problem:', res.statusText);
-      }
-
-      return res.json();
-    })
-    .then(() => {
-      dispatch({
-        type: DELETE_COMMENT_SUCCESS,
-        payload: {
-          id,
-        },
-      });
-    })
-    .catch((error) => {
-      dispatch({
-        type: DELETE_COMMENT_SUCCESS,
-        payload: error,
-      });
-    });
+  }), DELETE_COMMENT, id);
 };
