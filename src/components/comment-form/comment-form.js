@@ -1,10 +1,22 @@
 export default class CommentForm extends HTMLElement {
+  get isSubmitting() {
+    return this.getAttribute('submitting');
+  }
+
   connectedCallback() {
     this.render();
     this.form = this.querySelector('form');
     this.input = this.querySelector('input');
     this.textarea = this.querySelector('textarea');
     this.form.addEventListener('submit', this.onSubmit.bind(this));
+  }
+
+  static get observedAttributes() { return ['submitting']; }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (oldValue !== newValue) {
+      this.render();
+    }
   }
 
   onSubmit(event) {
@@ -15,10 +27,10 @@ export default class CommentForm extends HTMLElement {
     }));
 
     this.textarea.value = '';
+    this.input.value = '';
   }
 
   template() {
-    console.log(this);
     return `
         <form>
             <fieldset class="uk-fieldset">
@@ -30,9 +42,9 @@ export default class CommentForm extends HTMLElement {
                 <div class="uk-margin">
                     <textarea class="uk-textarea" rows="5" placeholder="Your Comment here?"></textarea>
                 </div>
-                
+
                 <div class="uk-margin">
-                    <button class="uk-button uk-button-primary" type="submit">Comment!</button>
+                    <button class="uk-button uk-button-primary" type="submit" ${this.isSubmitting === 'true' ? 'disabled' : ''}>Comment!</button>
                 </div>
             </fieldset>
         </form>
