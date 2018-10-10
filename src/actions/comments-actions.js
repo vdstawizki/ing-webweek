@@ -4,27 +4,29 @@ import {
   DELETE_COMMENT,
 } from './action-types';
 
-const asyncAction = (promise, actionName, optionalPayload = null) => (dispatch) => {
-  dispatch({
-    type: `${actionName}_START`,
-  });
+const asyncAction = (responsePromise, actionName, optionalPayload = null) => async (dispatch) => {
+  try {
+    dispatch({
+      type: `${actionName}_START`,
+    });
 
-  promise.then((res) => {
-    if (!res.ok) {
-      throw new Error('Looks like there ware a problem:', res.statusText);
+    const response = await responsePromise;
+
+    if (!response.ok) {
+      throw new Error(`Looks like there ware a problem: ${response.status} ${response.statusText}`);
     }
-    return res.json();
-  }).then((data) => {
+
+    const payload = await response.json();
     dispatch({
       type: `${actionName}_SUCCESS`,
-      payload: Object.keys(data).length ? data : optionalPayload,
+      payload: Object.keys(payload).length ? payload : optionalPayload,
     });
-  }).catch((error) => {
+  } catch (error) {
     dispatch({
       type: `${actionName}_ERROR`,
       payload: error,
     });
-  });
+  }
 };
 
 export const fetchComments = () => {
