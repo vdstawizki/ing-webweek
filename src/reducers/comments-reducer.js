@@ -21,18 +21,23 @@ export default (state = initialState, { type, payload = {} }) => {
     case ADD_COMMENT_START:
       return { ...state, isSubmitting: true, error: null };
 
-    case ADD_COMMENT_SUCCESS:
+    case ADD_COMMENT_SUCCESS: {
       const newComments = [...state.comments, payload];
       return { ...state, comments: newComments, isSubmitting: false, error: null };
+    }
 
     case ADD_COMMENT_ERROR:
       return { ...state, isSubmitting: false, error: payload };
 
     case DELETE_COMMENT_START:
-     return { ...state, isSubmitting: true, error: null };
+      return { ...state, isSubmitting: true, error: null };
 
     case DELETE_COMMENT_SUCCESS:
-      return { ...state, isSubmitting: false, comments: state.comments.filter(c => c.id !== parseInt(payload, 10)) };
+      return {
+        ...state,
+        isSubmitting: false,
+        comments: state.comments.filter(c => c.id !== parseInt(payload, 10)),
+      };
 
     case DELETE_COMMENT_ERROR:
       return { ...state, isSubmitting: false, error: payload };
