@@ -1,6 +1,6 @@
 import { FETCH_COMMENTS_START, FETCH_COMMENTS_SUCCESS, FETCH_COMMENTS_ERROR, ADD_COMMENT_START, ADD_COMMENT_SUCCESS, ADD_COMMENT_ERROR, DELETE_COMMENT_SUCCESS, DELETE_COMMENT_ERROR, DELETE_COMMENT, DELETE_COMMENT_START } from '../actions/action-types';
 
-const initialState = {
+export const initialState = {
   comments: [],
   isFetching: false,
   isSubmitting: false,
