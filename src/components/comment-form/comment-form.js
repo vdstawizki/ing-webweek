@@ -25,9 +25,6 @@ export default class CommentForm extends HTMLElement {
     this.dispatchEvent(new CustomEvent('ing:submit', {
       detail: { name: this.input.value, comment: this.textarea.value },
     }));
-
-    this.textarea.value = '';
-    this.input.value = '';
   }
 
   template() {
