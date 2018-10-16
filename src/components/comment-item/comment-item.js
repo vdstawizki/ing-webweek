@@ -23,6 +23,10 @@ export default class CommentItem extends HTMLElement {
     this.setAttribute('comment', value);
   }
 
+  set visible(value) {
+    this.setAttribute('visible', value);
+  }
+
   connectedCallback() {
     this.render();
 
@@ -42,9 +46,9 @@ export default class CommentItem extends HTMLElement {
     return `
         <div class="uk-margin uk-card uk-card-default uk-dark">
             <div class="uk-card-body">
-                <p><strong>${this.name}</strong></p>
+                <p class="card-name">${this.name}</p>
                 <p>${this.comment}</p>
-                <p><a class="js-delete-comment" href="#">delete comment</a></p>
+                <p class="card-delete"><a class="js-delete-comment" href="#">delete comment</a></p>
             </div>
         </div>
     `;
@@ -52,5 +56,8 @@ export default class CommentItem extends HTMLElement {
 
   render() {
     this.innerHTML = this.template();
+    setTimeout(() => {
+      this.visible = true;
+    }, 100);
   }
 }

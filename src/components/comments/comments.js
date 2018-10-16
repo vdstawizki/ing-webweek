@@ -30,7 +30,7 @@ export default class Comments extends HTMLElement {
 
     this.commentList.setAttribute('error', this.props.error);
     this.commentList.setAttribute('fetching', this.props.isFetching);
-    this.commentList.setAttribute('comments', JSON.stringify(this.props.comments));
+    this.commentList.setAttribute('comments', JSON.stringify(this.props.comments.reverse()));
     this.commentForm.setAttribute('submitting', this.props.isSubmitting);
   }
 }
