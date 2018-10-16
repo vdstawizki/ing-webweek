@@ -37,7 +37,7 @@ export default class CommentForm extends HTMLElement {
                 </div>
 
                 <div class="uk-margin">
-                    <textarea class="uk-textarea" rows="5" placeholder="Your Comment here?"></textarea>
+                    <textarea class="uk-textarea" rows="4" placeholder="Your Comment here?"></textarea>
                 </div>
 
                 <div class="uk-margin">
