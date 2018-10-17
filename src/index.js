@@ -20,4 +20,3 @@ if (!customElements.get('ing-comment-item')) {
 if (!customElements.get('ing-comment-list')) {
   customElements.define('ing-comment-list', CommentList);
 }
-

@@ -1,0 +1,21 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      args:
+        - NPM_TOKEN=c3U0NXVkOkFQQUhvSDc4aURudnBFQ2VINnJWTDlMMm1Ldw==
+    ports:
+     - "8080:8080"
+  backend:
+    container_name: backend
+    # https://hub.docker.com/r/williamyeh/json-server/
+    image: "williamyeh/json-server"
+    volumes:
+      - ./backend:/data
+    command: --watch db.json
+    ports:
+      - "3000:3000"
+    # expose:
+    #   - "3000"
