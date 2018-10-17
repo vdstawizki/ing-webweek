@@ -27,7 +27,7 @@ export default class CommentList extends HTMLElement {
     return `
         ${this.isFetching === 'true' ? '<div>Loading</div>' : ''}
         ${this.error !== 'null' ? `<div>${this.error}</div>` : ''}
-        ${JSON.parse(this.comments).map((comment, index) => `
+        ${(JSON.parse(this.comments) || []).map((comment, index) => `
           <ing-comment-item commentId="${comment.id}" name="${comment.name}" comment="${comment.comment}" style="transition-delay:${index * 80}ms" ></ing-comment-item>
         `).join('')}
     `;
