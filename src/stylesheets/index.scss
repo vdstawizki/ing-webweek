@@ -132,14 +132,9 @@ ing-comment-item {
 
 ing-comment-item {
   transform: translate3d(0, -10%, 0);
-  opacity: 0;
+  opacity: 1;
   transform-style: preserve-3d;
   transition: all 250ms ease;
-
-  &[visible='true'] {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
 
   p {
     font-size: 36px;
