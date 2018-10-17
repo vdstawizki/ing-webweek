@@ -1,11 +1,21 @@
 export default class CommentForm extends HTMLElement {
-
-  connectedCallback() {
+	connectedCallback() {
     this.render();
-  }
+		this.input = this.querySelector('input');
+		this.textarea = this.querySelector('textarea');
+    this.querySelector('form').addEventListener('submit', this.onSubmit.bind(this));
+	}
 
-  template() {
-    return `
+	onSubmit(event) {
+		event.preventDefault();
+
+		this.dispatchEvent(new CustomEvent('ing:submit', {
+			detail: { name: this.input.value, comment: this.textarea.value }
+    }));
+	}
+
+	template() {
+		return `
         <form>
             <fieldset class="uk-fieldset">
                 <legend class="uk-legend">Add new comment!</legend>
@@ -23,9 +33,9 @@ export default class CommentForm extends HTMLElement {
             </fieldset>
         </form>
     `;
-  }
+	}
 
-  render() {
-    this.innerHTML = this.template();
-  }
+	render() {
+		this.innerHTML = this.template();
+	}
 }
