@@ -3,24 +3,12 @@ export default class CommentList extends HTMLElement {
     return this.getAttribute('error');
   }
 
-  set error(error) {
-    this.setAttribute('error', error);
-  }
-
   get isFetching() {
     return this.getAttribute('fetching');
   }
 
-  set isFetching(fetching) {
-    this.setAttribute('fetching', fetching);
-  }
-
   get comments() {
     return this.getAttribute('comments');
-  }
-
-  set comments(comments) {
-    this.setAttribute('comments', comments);
   }
 
   static get observedAttributes() { return ['fetching', 'error', 'comments']; }

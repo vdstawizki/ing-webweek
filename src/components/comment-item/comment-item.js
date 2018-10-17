@@ -3,24 +3,12 @@ export default class CommentItem extends HTMLElement {
     return this.getAttribute('name');
   }
 
-  set name(value) {
-    this.setAttribute('name', value);
-  }
-
   get commentId() {
     return this.getAttribute('commentId');
   }
 
-  set commentId(id) {
-    this.setAttribute('commentId', id);
-  }
-
   get comment() {
     return this.getAttribute('comment');
-  }
-
-  set comment(value) {
-    this.setAttribute('comment', value);
   }
 
   set visible(value) {

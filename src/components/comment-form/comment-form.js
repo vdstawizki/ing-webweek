@@ -33,11 +33,11 @@ export default class CommentForm extends HTMLElement {
             <fieldset class="uk-fieldset">
                 <legend class="uk-legend">Add new comment!</legend>
                 <div class="uk-margin">
-                    <input class="uk-input" type="text" placeholder="Your Name?">
+                    <input class="uk-input" type="text" placeholder="Your Name?" required>
                 </div>
 
                 <div class="uk-margin">
-                    <textarea class="uk-textarea" rows="4" placeholder="Your Comment here?"></textarea>
+                    <textarea class="uk-textarea" rows="4" placeholder="Your Comment here?" required></textarea>
                 </div>
 
                 <div class="uk-margin">
