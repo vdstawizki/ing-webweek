@@ -11,7 +11,7 @@ RUN tar -xf node-v10.13.0-headers.tar.gz --directory ~/.node-gyp/10.13.0/ --stri
 WORKDIR /app
 
 ARG SASS_BINARY_PATH
-ENV SASS_BINARY_PATH=/app/linux-x64-64_binding.node
+ENV SASS_BINARY_SITE=https://artifactory.ing.net/artifactory/Node-sass-cache
 
 COPY package.json package.json
 COPY .npmrc .npmrc
